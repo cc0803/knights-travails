@@ -104,7 +104,19 @@ function createPossibleVertices(point) {
 
 	let results = [];
 
+	// Filter the possibilities for all still on the board
+	possibilities.forEach((possibilitie) => {
+		if (
+			possibilitie[0] >= 0 &&
+			possibilitie[0] <= 7 &&
+			possibilitie[1] >= 0 &&
+			possibilitie[1] <= 7
+		) {
+			results.push(possibilitie);
+		}
+	});
+
 	return results;
 }
 
-console.log(createPossibleVertices([0, 0]));
+console.log(createPossibleVertices([3, 3]));
