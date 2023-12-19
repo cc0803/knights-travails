@@ -77,11 +77,19 @@ function addNote(position) {
 // Adding vertices
 function addVertex(position, value) {
 	graph.get(position).push(value);
-	graph.get(value).push(position);
 }
 
+// add all Notes to graph
 fields.forEach((element) => {
 	addNote(element);
+});
+
+// Add vertices for each field
+fields.forEach((field) => {
+	let results = createPossibleVertices(field);
+	for (let i = 0; i < results.length; i++) {
+		addVertex(field, results[i]);
+	}
 });
 
 console.log(graph);
