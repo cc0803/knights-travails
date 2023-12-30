@@ -97,6 +97,7 @@ console.log(graph);
 function createPossibleVertices(point) {
 	let x = point[0];
 	let y = point[1];
+	let arr;
 
 	let possibilities = [];
 
@@ -127,4 +128,32 @@ function createPossibleVertices(point) {
 	return results;
 }
 
-console.log(createPossibleVertices([3, 3]));
+/* 
+Using a BFS Algorithm to find the shortest path
+--> Aditionally use aspects of Dijkstra's Algorithm 
+Not using DFS because then one still needs 
+another algorithm inorder to find the shortest
+path among all paths.
+*/
+
+function searchPath(startingPoint, Endpoint) {
+	let visitedNodes = [];
+	let queue = [];
+	let distanceMap = new Map();
+	let found = false;
+
+	while (!found) {
+		graph.get(startingPoint).forEach();
+	}
+}
+
+// Creating Object for distanceMap
+function createPathTableObject(shortest, previous) {
+	return {
+		shortestPath: shortest,
+		previousNode: previous,
+	};
+}
+
+let arr = [3, 3];
+console.log(graph.get(arr));
