@@ -38,7 +38,6 @@ console.log(graph);
 function createPossibleVertices(point) {
 	let x = Number(point[0]);
 	let y = Number(point[1]);
-	let arr;
 
 	let possibilities = [];
 
@@ -83,9 +82,17 @@ function searchPath(startingPoint, Endpoint) {
 	let distanceMap = new Map();
 	let found = false;
 
-	while (!found) {
-		graph.get(startingPoint).forEach();
-	}
+	// Iterate through connections from starting point
+	let connections = graph.get(startingPoint.join(""));
+
+	connections.forEach((con) => {
+		if (con.join("") != Endpoint.join("")) {
+			queue.push(con);
+		} else {
+			found = true;
+			console.log(con);
+		}
+	});
 }
 
 // Creating Object for distanceMap
@@ -95,3 +102,5 @@ function createPathTableObject(shortest, previous) {
 		previousNode: previous,
 	};
 }
+
+searchPath([1, 3], [2, 5]);
