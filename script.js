@@ -1,76 +1,8 @@
-// Chessboard fields
-let fields = [
-	[0, 0],
-	[0, 1],
-	[0, 2],
-	[0, 3],
-	[0, 4],
-	[0, 5],
-	[0, 6],
-	[0, 7],
-	[1, 0],
-	[1, 1],
-	[1, 2],
-	[1, 3],
-	[1, 4],
-	[1, 5],
-	[1, 6],
-	[1, 7],
-	[2, 0],
-	[2, 1],
-	[2, 2],
-	[2, 3],
-	[2, 4],
-	[2, 5],
-	[2, 6],
-	[2, 7],
-	[3, 0],
-	[3, 1],
-	[3, 2],
-	[3, 3],
-	[3, 4],
-	[3, 5],
-	[3, 6],
-	[3, 7],
-	[4, 0],
-	[4, 1],
-	[4, 2],
-	[4, 3],
-	[4, 4],
-	[4, 5],
-	[4, 6],
-	[4, 7],
-	[5, 0],
-	[5, 1],
-	[5, 2],
-	[5, 3],
-	[5, 4],
-	[5, 5],
-	[5, 6],
-	[5, 7],
-	[6, 0],
-	[6, 1],
-	[6, 2],
-	[6, 3],
-	[6, 4],
-	[6, 5],
-	[6, 6],
-	[6, 7],
-	[7, 0],
-	[7, 1],
-	[7, 2],
-	[7, 3],
-	[7, 4],
-	[7, 5],
-	[7, 6],
-	[7, 7],
-];
-
 // Graph as adjacency list
 let graph = new Map();
 
 // Adding Notes
-function addNote(position) {
+function addNode(position) {
 	graph.set(position, []);
 }
 
@@ -80,23 +12,32 @@ function addVertex(position, value) {
 }
 
 // add all Notes to graph
-fields.forEach((element) => {
-	addNote(element);
-});
+let node;
+
+for (let i = 0; i < 8; i++) {
+	for (let k = 0; k < 8; k++) {
+		node = String(i) + String(k);
+		addNode(node);
+	}
+}
+
+// Get all the keys from graph as an array
+let keys = [...graph.keys()];
 
 // Add vertices for each field
-fields.forEach((field) => {
-	let results = createPossibleVertices(field);
+keys.forEach((key) => {
+	let results = createPossibleVertices(key.split(""));
+
 	for (let i = 0; i < results.length; i++) {
-		addVertex(field, results[i]);
+		addVertex(key, results[i]);
 	}
 });
 
 console.log(graph);
 
 function createPossibleVertices(point) {
-	let x = point[0];
-	let y = point[1];
+	let x = Number(point[0]);
+	let y = Number(point[1]);
 	let arr;
 
 	let possibilities = [];
@@ -154,6 +95,3 @@ function createPathTableObject(shortest, previous) {
 		previousNode: previous,
 	};
 }
-
-let arr = [3, 3];
-console.log(graph.get([3, 3]));
