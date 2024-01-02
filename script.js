@@ -156,4 +156,4 @@ function createPathTableObject(shortest, previous) {
 }
 
 let arr = [3, 3];
-console.log(graph.get(arr));
+console.log(graph.get([3, 3]));
