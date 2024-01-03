@@ -76,24 +76,44 @@ another algorithm inorder to find the shortest
 path among all paths.
 */
 
-function searchPath(startingPoint, Endpoint) {
-	let visitedNodes = [];
+let distanceMap = new Map();
+let visitedNodes = [];
+
+function searchPath(startingPoint, endpoint) {
 	let queue = [];
-	let distanceMap = new Map();
 	let found = false;
+	let connections = [];
+	let lastNode;
 
-	// Iterate through connections from starting point
-	let connections = graph.get(startingPoint.join(""));
+	// enqueue startingpoint
+	queue.push(startingPoint);
 
-	connections.forEach((con) => {
-		if (con.join("") != Endpoint.join("")) {
-			queue.push(con);
-		} else {
-			found = true;
-			console.log(con);
-		}
-	});
+	while (!found) {
+		// Get connections from first queued element
+		connections = graph.get(queue[0].join(""));
+
+		// Dequeue visited nodes and add them to visitedNodes array
+		lastNode = queue.shift();
+		visitedNodes.push(lastNode);
+
+		// Iterate through all connections and enqueue them
+		connections.forEach((con) => {
+			if (con.join("") != endpoint.join("")) {
+				queue.push(con);
+
+				distanceMap.set(
+					con.join(""),
+					createPathTableObject(1, lastNode.join(""))
+				);
+			} else {
+				found = true;
+				console.log(con);
+			}
+		});
+	}
 }
+
+console.log(distanceMap);
 
 // Creating Object for distanceMap
 function createPathTableObject(shortest, previous) {
