@@ -76,14 +76,6 @@ another algorithm inorder to find the shortest
 path among all paths.
 */
 
-// Creating Object for distanceMap
-function createPathTableObject(shortest, previous) {
-	return {
-		shortestPath: shortest,
-		previousNode: previous,
-	};
-}
-
 function searchPath(startingPoint, endpoint) {
 	let visitedNodes = [];
 	let distanceMap = new Map();
@@ -110,17 +102,14 @@ function searchPath(startingPoint, endpoint) {
 			if (con.join("") != endpoint.join("")) {
 				queue.push(con);
 
-				distanceMap.set(
-					con.join(""),
-					createPathTableObject(1, lastNode.join(""))
-				);
+				distanceMap.set(con.join(""), lastNode.join(""));
 			} else {
 				found = true;
 			}
 		});
 	}
 
-	distanceMap.set(startingPoint.join(""), createPathTableObject(0, ""));
+	distanceMap.set(startingPoint.join(""), "");
 	return distanceMap;
 }
 
