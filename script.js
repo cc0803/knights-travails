@@ -84,12 +84,9 @@ function createPathTableObject(shortest, previous) {
 	};
 }
 
-let distanceMap = new Map();
-let visitedNodes = [];
-
-console.log(distanceMap);
-
 function searchPath(startingPoint, endpoint) {
+	let visitedNodes = [];
+	let distanceMap = new Map();
 	let queue = [];
 	let found = false;
 	let connections = [];
@@ -99,8 +96,6 @@ function searchPath(startingPoint, endpoint) {
 	queue.push(startingPoint);
 
 	// Add startingPoint to distanceMap
-	distanceMap.set(startingPoint.join(""), createPathTableObject(0, ""));
-	console.log(distanceMap);
 
 	while (!found) {
 		// Get connections from first queued element
@@ -124,8 +119,12 @@ function searchPath(startingPoint, endpoint) {
 			}
 		});
 	}
+
+	distanceMap.set(startingPoint.join(""), createPathTableObject(0, ""));
+	return distanceMap;
 }
 
-function shortestPath(startNode, endNode) {}
+let distanceMap = searchPath([1, 3], [3, 7]);
+console.log(distanceMap);
 
-searchPath([1, 3], [3, 7]);
+function shortestPath(startNode, endNode) {}
