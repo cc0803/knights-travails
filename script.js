@@ -77,7 +77,6 @@ path among all paths.
 */
 
 function searchPath(startingPoint, endpoint) {
-	let visitedNodes = [];
 	let distanceMap = new Map();
 	let queue = [];
 	let found = false;
@@ -95,15 +94,14 @@ function searchPath(startingPoint, endpoint) {
 
 		// Dequeue visited nodes and add them to visitedNodes array
 		lastNode = queue.shift();
-		visitedNodes.push(lastNode);
 
 		// Iterate through all connections and enqueue them
 		connections.forEach((con) => {
 			if (con.join("") != endpoint.join("")) {
 				queue.push(con);
-
 				distanceMap.set(con.join(""), lastNode.join(""));
 			} else {
+				distanceMap.set(con.join(""), lastNode.join(""));
 				found = true;
 			}
 		});
@@ -113,7 +111,21 @@ function searchPath(startingPoint, endpoint) {
 	return distanceMap;
 }
 
-let distanceMap = searchPath([1, 3], [3, 7]);
-console.log(distanceMap);
+function shortestPath(startingPoint, endNode) {
+	let distanceMap = searchPath(startingPoint, endNode);
+	console.log(distanceMap);
 
-function shortestPath(startNode, endNode) {}
+	let previous = endNode.join("");
+	let arr = [];
+
+	do {
+		arr.push(previous);
+		previous = distanceMap.get(previous);
+	} while (previous != "");
+
+	for (let i = arr.length - 1; i >= 0; i--) {
+		console.log(arr[i]);
+	}
+}
+
+shortestPath([1, 2], [4, 5]);
