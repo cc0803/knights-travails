@@ -79,6 +79,7 @@ function searchPath(startingPoint, endpoint) {
 	let queue = [];
 	let found = false;
 	let connections = [];
+	let visited = new Map();
 	let lastNode;
 
 	// enqueue startingpoint
@@ -97,7 +98,12 @@ function searchPath(startingPoint, endpoint) {
 		connections.forEach((con) => {
 			if (con.join("") != endpoint.join("")) {
 				queue.push(con);
-				distanceMap.set(con.join(""), lastNode.join(""));
+
+				// Check, if node was already visited
+				if (!visited.has(con.join(""))) {
+					distanceMap.set(con.join(""), lastNode.join(""));
+					visited.set(con.join(""), "");
+				}
 			} else {
 				distanceMap.set(con.join(""), lastNode.join(""));
 				found = true;
@@ -118,7 +124,7 @@ function shortestPath(startingPoint, endNode) {
 	do {
 		arr.push(previous);
 		previous = distanceMap.get(previous);
-	} while (previous != "");
+	} while (previous != "" && arr.length <= 64);
 
 	// Log output as in example
 	console.log(`=> You made it in ${arr.length} moves! Here is your path:`);
@@ -128,3 +134,5 @@ function shortestPath(startingPoint, endNode) {
 		console.log(Array.from(arr[i], Number));
 	}
 }
+
+shortestPath([0, 0], [7, 7]);
