@@ -113,7 +113,6 @@ function searchPath(startingPoint, endpoint) {
 
 function shortestPath(startingPoint, endNode) {
 	let distanceMap = searchPath(startingPoint, endNode);
-	console.log(distanceMap);
 
 	let previous = endNode.join("");
 	let arr = [];
@@ -123,8 +122,12 @@ function shortestPath(startingPoint, endNode) {
 		previous = distanceMap.get(previous);
 	} while (previous != "");
 
+	// Log output as in example
+	console.log(`=> You made it in ${arr.length} moves! Here is your path:`);
+
 	for (let i = arr.length - 1; i >= 0; i--) {
-		console.log(arr[i]);
+		// logging the route and converting to Integers
+		console.log(Array.from(arr[i], Number));
 	}
 }
 
