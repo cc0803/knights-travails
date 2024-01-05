@@ -33,8 +33,6 @@ keys.forEach((key) => {
 	}
 });
 
-console.log(graph);
-
 function createPossibleVertices(point) {
 	let x = Number(point[0]);
 	let y = Number(point[1]);
@@ -130,5 +128,3 @@ function shortestPath(startingPoint, endNode) {
 		console.log(Array.from(arr[i], Number));
 	}
 }
-
-shortestPath([1, 2], [4, 5]);
