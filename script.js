@@ -49,21 +49,14 @@ function createPossibleVertices(point) {
 	possibilities.push([x + 1, y - 2]);
 	possibilities.push([x - 1, y - 2]);
 
-	let results = [];
-
 	// Filter the possibilities for all still on the board
-	possibilities.forEach((possibilitie) => {
-		if (
-			possibilitie[0] >= 0 &&
-			possibilitie[0] <= 7 &&
-			possibilitie[1] >= 0 &&
-			possibilitie[1] <= 7
-		) {
-			results.push(possibilitie);
-		}
-	});
+	return possibilities.filter(isInRange);
+}
 
-	return results;
+function isInRange(value) {
+	if (value[0] >= 0 && value[0] <= 7 && value[1] >= 0 && value[1] <= 7) {
+		return value;
+	}
 }
 
 /* 
@@ -97,13 +90,13 @@ function searchPath(startingPoint, endpoint) {
 		// Iterate through all connections and enqueue them
 		connections.forEach((con) => {
 			if (con.join("") != endpoint.join("")) {
-				queue.push(con);
-
 				// Check, if node was already visited
 				if (!visited.has(con.join(""))) {
 					distanceMap.set(con.join(""), lastNode.join(""));
 					visited.set(con.join(""), "");
 				}
+
+				queue.push(con);
 			} else {
 				distanceMap.set(con.join(""), lastNode.join(""));
 				found = true;
@@ -135,4 +128,4 @@ function shortestPath(startingPoint, endNode) {
 	}
 }
 
-shortestPath([0, 0], [7, 7]);
+shortestPath([0, 0], [7, 0]);
